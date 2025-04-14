@@ -25,7 +25,7 @@ class Particle:
       if self.position[i] - self.radius < 0:
         self.position[i] = self.radius
         self.velocity[i] *= -0.5
-      else if self.position[i] + self.radius > (width if i == 0 else height):
+      elif self.position[i] + self.radius > (width if i == 0 else height):
         self.position[i] = (width if i == 0 else height) - self.radius
         self.velocity[i] *= -0.5
 
