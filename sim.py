@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 gravity = np.array([0,-10]) 
-width = 10, height = 10
+width, height = 10, 10
 changeInTime = 1
 
 class Particle:
