@@ -64,7 +64,7 @@ class Particle:
 particles = [
     Particle(position=[random.uniform(1, 9), random.uniform(5, 9)],
              velocity=[random.uniform(-1, 1), random.uniform(-1, 1)])
-    for _ in range(10)
+    for _ in range(100)
 ]
 
 # Set up visualization
