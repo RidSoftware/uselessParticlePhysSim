@@ -2,6 +2,10 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
 import random
+import time
+
+# Start timing
+start_time = time.time()
 
 # Constants
 gravity = np.array([0, -9.81])  # Acceleration due to gravity
@@ -93,3 +97,7 @@ def animate(frame):
 ani = animation.FuncAnimation(fig, animate, frames=200, interval=20, blit=True)
 ani.save("particle_sim.gif", writer="pillow", fps=30)
 print("Animation saved as 'particle_sim.gif'")
+
+end_time = time.time()
+duration_ms = (end_time - start_time) * 1000
+print(f"Simulation completed in {duration_ms:.2f} ms")
