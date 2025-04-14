@@ -1,4 +1,5 @@
-import numbpy as np
+import numpy as np
+import random
 
 gravity = np.array([0,-10]) 
 width = 10, height = 10
@@ -25,6 +26,8 @@ class Particle:
         self.position[i] = (width if i == 0 else height) - self.radius
         self.velocity[i] *= -0.5
 
-particle = [
-  ###
+particles = [
+    Particle(position=[random.uniform(1, 9), random.uniform(5, 9)],
+             velocity=[random.uniform(-1, 1), random.uniform(-1, 1)])
+    for _ in range(10)
 ]
