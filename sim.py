@@ -1,6 +1,9 @@
 import numpy as np
 import random
 
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
 gravity = np.array([0,-10]) 
 width = 10, height = 10
 changeInTime = 1
@@ -31,3 +34,18 @@ particles = [
              velocity=[random.uniform(-1, 1), random.uniform(-1, 1)])
     for _ in range(10)
 ]
+
+fig, ax = plt.subplots()
+ax.set_xlim(0, width)
+ax.set_ylim(0, height)
+scat = ax.scatter([p.position[0] for p in particles],
+                 [p.position[1] for p in particles], s=100)
+
+def animate(frame):
+    for p in particles:
+        p.update()
+    scat.set_offsets([p.position for p in particles])
+    return scat,
+
+ani = animation.FuncAnimation(fig, animate, frames=200, interval=20, blit=True)
+plt.show()
