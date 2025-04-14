@@ -10,7 +10,7 @@ start_time = time.time()
 # Constants
 gravity = np.array([0, -9.81])  # Acceleration due to gravity
 width, height = 10, 10  # Size of the box
-dt = 0.001  # Time step
+dt = 0.1  # Time step
 
 # Predefined colors (repeating set)
 color_choices = [
