@@ -69,7 +69,7 @@ class Particle:
 particles = [
     Particle(position=[random.uniform(1, 9), random.uniform(5, 9)],
              velocity=[random.uniform(-1, 1), random.uniform(-1, 1)])
-    for _ in range(10)
+    for _ in range(50)
 ]
 
 # Set up visualization
@@ -78,7 +78,7 @@ ax.set_xlim(0, width)
 ax.set_ylim(0, height)
 scat = ax.scatter([p.position[0] for p in particles],
                   [p.position[1] for p in particles],
-                  s=100,
+                  s=50,
                   c=[p.color for p in particles])
 
 def animate(frame):
@@ -91,7 +91,7 @@ def animate(frame):
     scat.set_offsets(positions)
     return scat,
 
-ani = animation.FuncAnimation(fig, animate, frames=100, interval=20, blit=True)
+ani = animation.FuncAnimation(fig, animate, frames=300, interval=20, blit=True)
 ani.save("particle_sim.gif", writer="pillow", fps=30)
 print("Animation saved as 'particle_sim.gif'")
 
