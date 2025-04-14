@@ -48,4 +48,5 @@ def animate(frame):
     return scat,
 
 ani = animation.FuncAnimation(fig, animate, frames=200, interval=20, blit=True)
-plt.show()
+ani.save("particle_sim.gif", writer="pillow", fps=30)
+print("Animation saved as 'particle_sim.gif'")
