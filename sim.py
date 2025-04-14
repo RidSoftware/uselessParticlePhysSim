@@ -8,6 +8,11 @@ gravity = np.array([0, -9.81])  # Acceleration due to gravity
 width, height = 10, 10  # Size of the box
 dt = 0.01  # Time step
 
+
+colour_choices = [
+    'red', 'green', 'blue', 'orange', 'purple', 'cyan', 'magenta'
+]
+
 # Particle class
 class Particle:
     def __init__(self, position, velocity, radius=0.1, mass=1.0):
@@ -15,7 +20,7 @@ class Particle:
         self.velocity = np.array(velocity, dtype=float)
         self.radius = radius
         self.mass = mass
-        self.color = np.random.rand(3,)
+        self.color = np.random.choice(colour_choices)
 
     def update(self):
         self.velocity += gravity * dt
