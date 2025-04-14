@@ -15,6 +15,7 @@ class Particle:
         self.velocity = np.array(velocity, dtype=float)
         self.radius = radius
         self.mass = mass
+        self.color = np.random.rand(3,)
 
     def update(self):
         self.velocity += gravity * dt
@@ -72,7 +73,9 @@ fig, ax = plt.subplots()
 ax.set_xlim(0, width)
 ax.set_ylim(0, height)
 scat = ax.scatter([p.position[0] for p in particles],
-                 [p.position[1] for p in particles], s=100)
+                 [p.position[1] for p in particles], 
+                 s=100,
+                 c=[p.color for p in particles]))
 
 def animate(frame):
     for i, p in enumerate(particles):
