@@ -29,6 +29,36 @@ class Particle:
             elif self.position[i] + self.radius > (width if i == 0 else height):
                 self.position[i] = (width if i == 0 else height) - self.radius
                 self.velocity[i] *= -0.8
+                
+    def handle_particle_collision(self, other):
+        delta_pos = self.position - other.position
+        dist = np.linalg.norm(delta_pos)
+        if dist < self.radius + other.radius and dist > 0:
+            # Normalize vector
+            normal = delta_pos / dist
+            # Relative velocity
+            rel_vel = self.velocity - other.velocity
+            # Speed along normal
+            vel_along_normal = np.dot(rel_vel, normal)
+            if vel_along_normal > 0:
+                return  # They are moving apart
+
+            # Calculate impulse scalar
+            restitution = 0.9
+            impulse_scalar = -(1 + restitution) * vel_along_normal
+            impulse_scalar /= (1 / self.mass + 1 / other.mass)
+
+            # Apply impulse
+            impulse = impulse_scalar * normal
+            self.velocity += impulse / self.mass
+            other.velocity -= impulse / other.mass
+
+            # Separate overlapping particles
+            overlap = self.radius + other.radius - dist
+            correction = normal * overlap / 2
+            self.position += correction
+            other.position -= correction
+
 
 # Create particles
 particles = [
@@ -45,8 +75,10 @@ scat = ax.scatter([p.position[0] for p in particles],
                  [p.position[1] for p in particles], s=100)
 
 def animate(frame):
-    for p in particles:
+    for i, p in enumerate(particles):
         p.update()
+        for j in range(i + 1, len(particles)):
+            p.handle_particle_collision(particles[j])
     scat.set_offsets([p.position for p in particles])
     return scat,
 
