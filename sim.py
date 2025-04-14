@@ -9,7 +9,7 @@ width, height = 10, 10
 changeInTime = 1
 
 class Particle:
-  def initialise(self, mass = 1, radius = 1, position, velocity):
+  def initialise(self, position, velocity, mass = 1, radius = 1):
     self.position = np.array(position, dtype = float)
     self.velocity = np.array(velocity, dtype=float)
     self.radius = radius
