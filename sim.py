@@ -75,7 +75,7 @@ ax.set_ylim(0, height)
 scat = ax.scatter([p.position[0] for p in particles],
                  [p.position[1] for p in particles], 
                  s=100,
-                 c=[p.color for p in particles]))
+                 c=[p.color for p in particles])
 
 def animate(frame):
     for i, p in enumerate(particles):
