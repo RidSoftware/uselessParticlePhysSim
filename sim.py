@@ -1,40 +1,43 @@
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 import numpy as np
 import random
 
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
+# Constants
+gravity = np.array([0, -9.81])  # Acceleration due to gravity
+width, height = 10, 10  # Size of the box
+dt = 0.01  # Time step
 
-gravity = np.array([0,-10]) 
-width, height = 10, 10
-changeInTime = 1
-
+# Particle class
 class Particle:
-  def __init__(self, position, velocity, mass = 1, radius = 1):
-    self.position = np.array(position, dtype = float)
-    self.velocity = np.array(velocity, dtype=float)
-    self.radius = radius
-    self.mass = mass
-  
-  def update(self):
-    self.velocity += gravity * changeInTime
-    self.position += self.velocity * changeInTime
-    self.wallCollision()
+    def __init__(self, position, velocity, radius=0.1, mass=1.0):
+        self.position = np.array(position, dtype=float)
+        self.velocity = np.array(velocity, dtype=float)
+        self.radius = radius
+        self.mass = mass
 
-  def wallCollision(self):
-    for i in range(2):
-      if self.position[i] - self.radius < 0:
-        self.position[i] = self.radius
-        self.velocity[i] *= -0.5
-      elif self.position[i] + self.radius > (width if i == 0 else height):
-        self.position[i] = (width if i == 0 else height) - self.radius
-        self.velocity[i] *= -0.5
+    def update(self):
+        self.velocity += gravity * dt
+        self.position += self.velocity * dt
+        self.handle_boundary_collision()
 
+    def handle_boundary_collision(self):
+        for i in range(2):
+            if self.position[i] - self.radius < 0:
+                self.position[i] = self.radius
+                self.velocity[i] *= -0.8  # lose some energy
+            elif self.position[i] + self.radius > (width if i == 0 else height):
+                self.position[i] = (width if i == 0 else height) - self.radius
+                self.velocity[i] *= -0.8
+
+# Create particles
 particles = [
     Particle(position=[random.uniform(1, 9), random.uniform(5, 9)],
              velocity=[random.uniform(-1, 1), random.uniform(-1, 1)])
     for _ in range(10)
 ]
 
+# Set up visualization
 fig, ax = plt.subplots()
 ax.set_xlim(0, width)
 ax.set_ylim(0, height)
